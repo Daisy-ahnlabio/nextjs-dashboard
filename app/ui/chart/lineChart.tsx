@@ -21,7 +21,7 @@ export default function LineChart() {
         // text: "Number of Employees",
       },
       labels: {
-        formatter: function () {
+        formatter: function (this: { value: number }): string {
           return this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
       },
