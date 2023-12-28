@@ -7,53 +7,51 @@ import { lusitana } from "@/app/ui/fonts";
 export default function LineChart() {
   const options = {
     title: {
-      text: "Total Users.",
+      text: "Total Users",
       align: "left",
     },
-
     subtitle: {
-      text: "Total Users.",
+      text: "Total Users",
       align: "left",
     },
-
     yAxis: {
       title: {
         // text: "Number of Employees",
       },
-      labels: {
-        formatter: function (this: { value: number }): string {
-          return this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        },
-      },
     },
-
     xAxis: {
-      type: "datetime",
-      dateTimeLabelFormats: {
-        month: "%b",
-      },
+      type: "category",
       title: {
-        text: "Total Users.",
+        text: "Month",
       },
       accessibility: {
         rangeDescription: "Range: January to December",
       },
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
     },
-
     legend: {
       layout: "vertical",
       align: "right",
       verticalAlign: "middle",
     },
-
     plotOptions: {
       series: {
         label: {
           connectorAllowed: false,
         },
-        pointStart: Date.UTC(2023, 0), // January 2023
-        pointInterval: 1, // 1 month interval
-        pointIntervalUnit: "month",
       },
     },
     series: [
@@ -61,18 +59,31 @@ export default function LineChart() {
         name: "2023 Total Users",
         data: [
           132014, 134961, 102917, 113897, 166517, 209858, 254622, 243286,
-          238283, 245844, 206853,
+          238283, 245844, 206853, 187309,
         ],
       },
       {
         name: "2022 Total Users",
         data: [
           110802, 119961, 90914, 99847, 147179, 186258, 225905, 214355, 205069,
-          209112, 187768,
+          209112, 187768, 178943,
+        ],
+      },
+      {
+        name: "2021 Total Users",
+        data: [
+          90000, 95000, 100000, 105000, 110000, 115000, 120000, 125000, 130000,
+          135000, 140000, 145000,
+        ],
+      },
+      {
+        name: "2020 Total Users",
+        data: [
+          80000, 85000, 90000, 95000, 100000, 105000, 110000, 115000, 120000,
+          125000, 130000, 135000,
         ],
       },
     ],
-
     responsive: {
       rules: [
         {

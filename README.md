@@ -6,3 +6,5 @@
 ## 환경변수
 
 ##
+
+user@next.com
