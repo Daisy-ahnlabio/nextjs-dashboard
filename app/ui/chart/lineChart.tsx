@@ -8,15 +8,15 @@ export default function LineChart() {
   const options = {
     title: {
       text: "Total Users",
-      align: "left",
+      align: "center",
     },
     subtitle: {
       text: "Total Users",
-      align: "left",
+      align: "center",
     },
     yAxis: {
       title: {
-        // text: "Number of Employees",
+        text: "Total Users Value",
       },
     },
     xAxis: {
@@ -52,7 +52,17 @@ export default function LineChart() {
         label: {
           connectorAllowed: false,
         },
+        dataLabels: {
+          enabled: true,
+          format: "{point.y}",
+        },
       },
+    },
+    chart: {
+      animation: {
+        duration: 1000,
+      },
+      backgroundColor: "#f8f8f8",
     },
     series: [
       {
@@ -99,6 +109,12 @@ export default function LineChart() {
           },
         },
       ],
+    },
+    tooltip: {
+      crosshairs: true,
+      formatter: function () {
+        return "<b>" + this.x + "</b><br/>" + this.series.name + ": " + this.y;
+      },
     },
   };
 

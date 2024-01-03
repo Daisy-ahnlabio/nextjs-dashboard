@@ -5,20 +5,27 @@ import Highcharts from "highcharts/highstock";
 import { lusitana } from "@/app/ui/fonts";
 
 export default function ColumnChart() {
-  const currentDate = new Date();
-  const actualYValues = [150, 50, 20, 10, 21, 123, 11, 50]; // Replace with your actual y values
-  const seriesData = [];
+  // 최근 7일간의 유저 수 데이터
+  var data = [];
+  var today = new Date();
+  for (var i = 0; i < 7; i++) {
+    var date = new Date(today);
+    date.setDate(today.getDate() - i);
+    var dateString = formatDate(date);
+    data.push([dateString, getRandomNumber(100, 500)]);
+  }
 
-  for (let i = 0; i < 8; i++) {
-    const nextDate = new Date(currentDate);
-    nextDate.setDate(currentDate.getDate() + i);
+  // 날짜 포맷 변환 함수
+  function formatDate(date: Date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, "0");
+    var day = date.getDate().toString().padStart(2, "0");
+    return year + "-" + month + "-" + day;
+  }
 
-    const formattedDate = nextDate.toLocaleDateString();
-
-    seriesData.push({
-      name: formattedDate,
-      y: actualYValues[i],
-    });
+  // 랜덤 숫자 생성 함수
+  function getRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   const options = {
@@ -26,66 +33,75 @@ export default function ColumnChart() {
       type: "column",
     },
     title: {
-      align: "left",
-      text: "New Users",
+      text: "7일 동안의 유저 수",
     },
-    accessibility: {
-      announceNewData: {
-        enabled: true,
-      },
+    subtitle: {
+      text: "Source: Your Data",
     },
     xAxis: {
       type: "category",
-      categories: [
-        "7 days ago",
-        "6 days ago",
-        "5 days ago",
-        "4 days ago",
-        "3 days ago",
-        "2 days ago",
-        "1 days ago",
-        "Today",
-      ],
+      labels: {
+        autoRotation: [-45, -90],
+        style: {
+          fontSize: "13px",
+          fontFamily: "Verdana, sans-serif",
+        },
+      },
     },
     yAxis: {
+      min: 0,
       title: {
-        text: "Number of New Users",
+        text: "유저 수",
       },
     },
     legend: {
-      enabled: false,
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: "{point.y}",
-        },
-      },
+      enabled: true,
     },
     tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      pointFormat:
-        '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> new users<br/>',
+      pointFormat: "유저 수: <b>{point.y}</b>",
     },
     series: [
       {
-        name: "New Users",
+        name: "유저 수",
+        colors: [
+          "#9b20d9",
+          "#9215ac",
+          "#861ec9",
+          "#7a17e6",
+          "#7010f9",
+          "#691af3",
+          "#6225ed",
+          "#5b30e7",
+          "#533be1",
+          "#4c46db",
+          "#4551d5",
+          "#3e5ccf",
+          "#3667c9",
+          "#2f72c3",
+          "#277dbd",
+          "#1f88b7",
+          "#1693b1",
+          "#0a9eaa",
+          "#03c69b",
+          "#00f194",
+        ],
         colorByPoint: true,
-        data: seriesData,
-      },
-    ],
-    drilldown: {
-      breadcrumbs: {
-        position: {
+        groupPadding: 0,
+        data: data,
+        dataLabels: {
+          enabled: true,
+          rotation: -90,
+          color: "#FFFFFF",
           align: "right",
+          format: "{point.y}", // 정수 형식으로 표시
+          y: 10, // 상단으로부터 10px 아래로
+          style: {
+            fontSize: "13px",
+            fontFamily: "Verdana, sans-serif",
+          },
         },
       },
-      series: [
-        // Add drilldown data as needed
-      ],
-    },
+    ],
   };
 
   return (

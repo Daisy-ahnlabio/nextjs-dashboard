@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highstock";
 import { lusitana } from "@/app/ui/fonts";
@@ -19,30 +19,25 @@ export default function PieChart() {
       text: "",
     },
     plotOptions: {
-      series: {
+      pie: {
         allowPointSelect: true,
         cursor: "pointer",
-        dataLabels: [
-          {
-            enabled: true,
-            distance: 20,
+        dataLabels: {
+          enabled: true,
+          distance: 20,
+          format: "<b>{point.name}</b>: {point.percentage:.1f}%",
+          style: {
+            fontSize: "1.2em",
+            textOutline: "none",
+            opacity: 0.7,
           },
-          {
-            enabled: true,
-            distance: -40,
-            format: "{point.percentage:.1f}%",
-            style: {
-              fontSize: "1.2em",
-              textOutline: "none",
-              opacity: 0.7,
-            },
-            filter: {
-              operator: ">",
-              property: "percentage",
-              value: 10,
-            },
+          filter: {
+            operator: ">",
+            property: "percentage",
+            value: 5,
           },
-        ],
+        },
+        showInLegend: true,
       },
     },
     series: [
@@ -72,6 +67,26 @@ export default function PieChart() {
             name: "Ash",
             y: 1.68,
           },
+          {
+            name: "Fiber",
+            y: 0.5,
+          },
+          {
+            name: "Vitamins",
+            y: 0.3,
+          },
+          {
+            name: "Minerals",
+            y: 0.2,
+          },
+          {
+            name: "Other",
+            y: 0.1,
+          },
+          {
+            name: "Unknown",
+            y: 0.01,
+          },
         ],
       },
     ],
@@ -83,7 +98,7 @@ export default function PieChart() {
         PieChart
       </h2>
       <div className="rounded-xl bg-gray-50 p-4">
-        <div className=" bg-white ">
+        <div className="bg-white">
           <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
       </div>
