@@ -111,10 +111,7 @@ export default function LineChart() {
       ],
     },
     tooltip: {
-      crosshairs: true,
-      formatter: function () {
-        return "<b>" + this.x + "</b><br/>" + this.series.name + ": " + this.y;
-      },
+      pointFormat: "<b> 유저수 </b><br/> {series.name} :{point.y}",
     },
   };
 
